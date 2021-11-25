@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:MauiTwitterApp.Features.Timeline"
+             x:DataType="local:TimelineViewModel"
+             xmlns:views="clr-namespace:MauiTwitterApp.Features.Timeline.Views"
+             x:Class="MauiTwitterApp.Features.Timeline.TimelinePage">
+
+    <ContentPage.BindingContext>
+        <local:TimelineViewModel/>
+    </ContentPage.BindingContext>
+    
+    <ContentPage.Content>
+        <Grid>
+            <CollectionView
+                ItemSizingStrategy="MeasureAllItems"
+                ItemsSource="{Binding Timeline}">
+                <CollectionView.Header>
+                    <Grid 
+                        ColumnDefinitions="*"
+                        HeightRequest="56"
+                        RowDefinitions="auto,1">
+                        <Image
+                            WidthRequest="30"
+                            HeightRequest="30"
+                            Margin="12"
+                            VerticalOptions="Center"
+                            HorizontalOptions="Start"
+                            Source="{Binding Client.Image}"/>
+                        <Image
+                            VerticalOptions="Center"
+                            Style="{StaticResource SmallTwitterImage}"
+                            />
+
+                        <BoxView
+                            Color="LightGray"
+                            HeightRequest="1"
+                            HorizontalOptions="FillAndExpand"
+                            GridLayout.Row="1"/>
+                    </Grid>
+                </CollectionView.Header>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <views:TweetItemView/>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+                <CollectionView.EmptyView>
+                    <Grid>
+                        <Label Text="No hay datos que mostrar"/>
+                    </Grid>
+                </CollectionView.EmptyView>
+            </CollectionView>
+            <ActivityIndicator
+                HorizontalOptions="Center"
+                VerticalOptions="Center"
+                IsRunning="{Binding IsBusy}"
+                IsVisible="{Binding IsBusy}"/>
+
+        </Grid>
+       
+    </ContentPage.Content>
+</ContentPage>

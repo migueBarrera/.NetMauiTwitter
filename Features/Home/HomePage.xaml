@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Shell xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:core="clr-namespace:MauiTwitterApp"
+       xmlns:timeline="clr-namespace:MauiTwitterApp.Features.Timeline"
+       Shell.NavBarIsVisible="False"
+             x:Class="MauiTwitterApp.Features.Home.HomePage">
+    <TabBar>
+        <ShellContent Title="Timeline"
+                     Icon="home_black.png"
+                     ContentTemplate="{DataTemplate timeline:TimelinePage}" />
+        <ShellContent Title="Search"
+                     Icon="search_black.png"
+                     ContentTemplate="{DataTemplate core:MainPage}" />
+        <ShellContent Title="Notifications"
+                     Icon="home_black.png"
+                     ContentTemplate="{DataTemplate core:MainPage}" />
+        <ShellContent Title="Messages"
+                     Icon="email_black.png"
+                     ContentTemplate="{DataTemplate core:MainPage}" />
+    </TabBar>
+</Shell>

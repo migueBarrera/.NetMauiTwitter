@@ -1,0 +1,172 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:model="clr-namespace:MauiTwitterApp.Features.Timeline.Models"
+             x:DataType="model:Timeline"
+             xmlns:timeline="clr-namespace:MauiTwitterApp.Features.Timeline"
+             x:Class="MauiTwitterApp.Features.Timeline.Views.TweetItemView">
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Image" x:Key="miniImageStyle">
+                <Setter Property="WidthRequest" Value="18"/>
+                <Setter Property="HeightRequest" Value="18"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentView.Resources>
+
+    <ContentView.Content>
+        <VerticalStackLayout Spacing="4">
+            <Grid
+                RowDefinitions="auto,auto,auto,auto"
+                ColumnDefinitions="78,*"
+                Margin="0,6,0,0">
+                <Label
+                    Text="{Binding Title}"
+                    GridLayout.Column="1"
+                    FontAttributes="Bold"
+                    TextColor="Black"/>
+                <BoxView
+                    WidthRequest="2"
+                    BackgroundColor="LightGray"
+                    GridLayout.Column="0"
+                    IsVisible="{Binding IsAThread}"
+                    GridLayout.Row="1"
+                    GridLayout.RowSpan="3"
+                    VerticalOptions="FillAndExpand"
+                    HorizontalOptions="Center"/>
+
+                <Image
+                    WidthRequest="54"
+                    HeightRequest="54"
+                    GridLayout.Column="0"
+                    GridLayout.Row="1"
+                    Margin="12,0"
+                    Source="{Binding UserImage}"/>
+
+
+                <Image
+                    WidthRequest="24"
+                    HeightRequest="24"
+                    GridLayout.Column="0"
+                    GridLayout.Row="3"
+                    Margin="12,0"
+                    IsVisible="{Binding IsAThread}"
+                    HorizontalOptions="Center"
+                    Source="{Binding UserImage}"/>
+
+                <Grid
+                    GridLayout.Row="1"
+                    GridLayout.Column="1"
+                    RowDefinitions="auto,auto"
+                    ColumnDefinitions="*,*"
+                    >
+                    <HorizontalStackLayout GridLayout.ColumnSpan="2" Spacing="4">
+                        <Label
+                            Text="{Binding UserName}"
+                            FontAttributes="Bold"
+                            TextColor="Black"/>
+                        <Label
+                            Text="{Binding UserTweeterName, StringFormat='@{0}'}"
+                            TextColor="Gray"
+                            />
+                    </HorizontalStackLayout>
+                    
+                    <Label
+                        Text="{Binding ElapsedTime}"
+                        TextColor="Gray"
+                        HorizontalOptions="End"
+                        GridLayout.Column="2"/>
+
+                    <Label
+                        Text="{Binding Content}"
+                        GridLayout.Row="1"
+                        TextColor="Black"
+                        GridLayout.ColumnSpan="3"/>
+                </Grid>
+
+                <Grid ColumnDefinitions="*,*,*,*"
+                      GridLayout.Column="1"
+                      GridLayout.Row="2"
+                      Padding="0,11">
+                    <HorizontalStackLayout
+                        Spacing="4">
+                        <Image
+                            Style="{StaticResource miniImageStyle}"
+                            Source="question_answer_black.png"/>
+                        <Label 
+                            Text="{Binding CountMessages}"
+                            FontSize="13"
+                            TextColor="#FF536471"/>
+                        <HorizontalStackLayout.GestureRecognizers>
+                            <TapGestureRecognizer 
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type timeline:TimelineViewModel}}, Path=CommentCommand}"
+                                CommandParameter="{Binding}" />
+                        </HorizontalStackLayout.GestureRecognizers>
+                    </HorizontalStackLayout>
+                    <HorizontalStackLayout
+                        GridLayout.Column="1"
+                        Spacing="4">
+                        <Image
+                            Style="{StaticResource miniImageStyle}"
+                            Source="retweet.png"/>
+                        <Label 
+                            Text="{Binding CountReteet}"
+                            FontSize="13"
+                            TextColor="#FF536471"/>
+                        <HorizontalStackLayout.GestureRecognizers>
+                            <TapGestureRecognizer 
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type timeline:TimelineViewModel}}, Path=RetweetCommand}"
+                                CommandParameter="{Binding}" />
+                        </HorizontalStackLayout.GestureRecognizers>
+                    </HorizontalStackLayout>
+                    <HorizontalStackLayout
+                        GridLayout.Column="2"
+                        Spacing="4">
+                        <Image
+                            Style="{StaticResource miniImageStyle}"
+                            Source="favorite_border_black.png"/>
+                        <Label 
+                            Text="{Binding CountFavorites}"
+                            FontSize="13"
+                            TextColor="#FF536471"/>
+                        <HorizontalStackLayout.GestureRecognizers>
+                            <TapGestureRecognizer 
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type timeline:TimelineViewModel}}, Path=FavoriteCommand}"
+                                CommandParameter="{Binding}" />
+                        </HorizontalStackLayout.GestureRecognizers>
+                    </HorizontalStackLayout>
+                    <Image
+                        GridLayout.Column="3"
+                        Style="{StaticResource miniImageStyle}"
+                        Source="share_black.png">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer 
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type timeline:TimelineViewModel}}, Path=FavoriteCommand}"
+                                CommandParameter="{Binding}" />
+                        </Image.GestureRecognizers>
+                    </Image>
+                </Grid>
+
+                <Label
+                    Text="Mostrar este hilo"
+                    TextColor="Blue"
+                    IsVisible="{Binding IsAThread}"
+                    GridLayout.Column="1"
+                    GridLayout.Row="3"
+                    FontSize="13">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer 
+                            Command="{Binding Source={RelativeSource AncestorType={x:Type timeline:TimelineViewModel}}, Path=ShowThreadCommand}"
+                            CommandParameter="{Binding}" />
+                    </Label.GestureRecognizers>
+                </Label>
+            </Grid>
+            <!-- Is not visible? Issue?-->
+            <BoxView
+                Color="LightGray"
+                HeightRequest="1"
+                HorizontalOptions="FillAndExpand"/>
+        </VerticalStackLayout>
+
+    </ContentView.Content>
+</ContentView>
